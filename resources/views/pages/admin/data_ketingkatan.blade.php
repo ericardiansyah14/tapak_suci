@@ -16,7 +16,7 @@
         </h4>
     </div>
     <div class="card-body">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Cabang +</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Tingkatan +</button>
         <hr>
         <div class="table-responsive mt-3">
             <table id="basic-datatables" class="display table table-striped table-bordered table-hover">
@@ -25,6 +25,7 @@
                         <th>id</th>
                         <th>Nomor Ketingkatan</th>
                         <th>Nama Ketingkatan</th>
+                        <th>kategori</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -34,6 +35,7 @@
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->nomor_tingkatan }}</td>
                             <td>{{ $data->nama_tingkatan }}</td>
+                            <td>{{ $data->kategori }}</td>
                             <td>
                                 <button style="box-shadow: 0px 3px 4px blue" class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Aksi
@@ -65,6 +67,18 @@
                                                 <label for="" class="form-label">Nomor Ketingkatan</label>
                                                 <input type="text" name="nik" value="{{ $data->nomor_tingkatan }}" placeholder="" readonly required class="form-control" id="">
                                             </div>
+
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Kategori</label>
+                                                <select name="kategori" class="form-select" id="">
+                                                    <option value="">{{ $data->kategori }}</option>
+                                                    <option value="pendekar">pendekar</option>
+                                                    <option value="kader">kader</option>
+                                                    <option value="siswa">siswa</option>
+                                                </select>
+                                            </div>
+
+
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Nama Ketingkatan</label>
                                                 <input type="text" name="nama_ketingkatan" value="{{ $data->nama_tingkatan }}" class="form-control" placeholder="Masukan Nama ketingkatan...." required id="">
@@ -89,7 +103,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Form Data Ketingkatan</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Form Tambah Data Ketingkatan</h5>
                 <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -100,10 +114,22 @@
                         <label for="" class="form-label">Nomor Ketingkatan</label>
                         <input type="text" name="nik" value="{{ $newKode }}" placeholder="" required class="form-control" id="">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Kategori</label>
+                        <select name="kategori" class="form-select" id="">
+                            <option value="">--pilih kategori--</option>
+                            <option value="pendekar">pendekar</option>
+                            <option value="kader">kader</option>
+                            <option value="siswa">siswa</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Ketingkatan</label>
                         <input type="text" name="nama_ketingkatan" class="form-control" placeholder="Masukan Nama ketingkatan...." required id="">
                     </div>
+                   
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

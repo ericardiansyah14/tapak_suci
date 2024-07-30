@@ -101,7 +101,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Form Tamu</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Form Tambah Cabang</h5>
                 <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -110,7 +110,7 @@
                     <input type="hidden" name="id" class="form-control" placeholder="id">
                     <div class="mb-3">
                         <label for="" class="form-label">Nomor Induk Cabang</label>
-                        <input type="text" name="nic" value="{{ $newKode }}" placeholder="" required class="form-control" id="">
+                        <input type="text" name="nic" value="{{ $newKode }}" placeholder="" required class="form-control" id="" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Cabang</label>
@@ -121,8 +121,12 @@
                         <input type="text" name="alamat" class="form-control" placeholder="Masukan Alamat Cabang..." required id="">
                     </div>
                     <div class="mb-3">
-                        <label for="" class="form-label">Pelatih Cabang</label>
-                        <input type="text" name="pelatih" class="form-control" placeholder="Masukan Pelatih Cabang...." required id="">
+                        <select name="pelatih" class="form-select" id="">
+                            <option value="">--pilih pelatih cabang--</option>
+                            @foreach ($anggota as $item)
+                                <option value="{{ $item->nama_anggota }}">{{ $item->nama_anggota }}</option>
+                            @endforeach
+                        </select>
                     </div>
             </div>
             <div class="modal-footer">

@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Cabang;
-use App\Models\Tingkatan;
 
-class Anggota extends Model
+class Siswa extends Model
 {
     use HasFactory;
-    protected $table = 'table_anggota'; 
+    protected $table = 'table_siswa'; 
     protected $fillable = [
         'nomor_induk',
         'nama_anggota',
@@ -27,15 +25,12 @@ class Anggota extends Model
     ];
 
     public function cabang()
-{
-    return $this->belongsTo(Cabang::class, 'kode_cabang', 'nomor_induk_cabang');
-}
-
-public function tingkatan()
-{
-    return $this->belongsTo(Tingkatan::class, 'kode_angkatan', 'nomor_tingkatan');
-}
-public function user(){
-    return $this->belongsTo(User::class, 'nama_anggota','username');
-}
+    {
+        return $this->belongsTo(Cabang::class, 'kode_cabang', 'nomor_induk_cabang');
+    }
+    
+    public function tingkatan()
+    {
+        return $this->belongsTo(Tingkatan::class, 'kode_angkatan', 'nomor_tingkatan');
+    }
 }

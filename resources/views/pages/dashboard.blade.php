@@ -10,7 +10,7 @@
   
 
     <!-- Card untuk chart anggota -->
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card">
             <div class="card-header bg-success text-white">
                 Jumlah Anggota
@@ -21,35 +21,24 @@
         </div>
     </div>
 
-
-<div class="col-md-6">
-    <div class="card">
-        <div class="card-header bg-success text-white">
-            Jumlah Tinggkatan
-        </div>
-        <div class="card-body">
-            {!! $chartTingkatan->container() !!}
-        </div>
-    </div>
-</div>
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-header bg-primary text-white">
-            Jumlah Cabang
-        </div>
-        <div class="card-body">
-            {!! $chartCabang->container() !!}
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                Jumlah anggota tiap cabang
+            </div>
+            <div class="card-body">
+                {!! $chartCabang->container() !!}
+            </div>
         </div>
     </div>
-</div>
-</div>
 
+
+
+
+</div>
+<script src="{{ $chartAnggota->cdn() }}"></script>
+{{ $chartAnggota->script() }}
 
 <script src="{{ $chartCabang->cdn() }}"></script>
 {{ $chartCabang->script() }}
-
-<script src="{{ $chartAnggota->cdn() }}"></script>
-{{ $chartAnggota->script() }}
-<script src="{{ $chartTingkatan->cdn() }}"></script>
-{{ $chartTingkatan->script() }}
 @endsection

@@ -19,12 +19,17 @@ class LoginController extends Controller
 
     public function loginPost(Request $request){
         $credetials = [
-            'email' => $request->email,
+            'username' => $request->email,
             'password' => $request->pass,
         ];
         if(Auth::attempt($credetials)){
+            if(Auth::user()->role == 'admin'){
             Alert::success('Success','Berhasil Login');
             return redirect('/dashboard')->with('success','Berhasil Login');
+        }else if(Auth::user()->role == 'pelatih'){
+            Alert::success('Success','Berhasil Login');
+            return redirect('/Dashpelatih')->with('success','Berhasil Login');
+        }
         }else{
            
             return redirect('/')->with('error','gagal Login');

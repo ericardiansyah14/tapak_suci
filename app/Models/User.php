@@ -19,7 +19,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
+        'username',
+        'role',
         'password',
     ];
 
@@ -42,4 +43,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function ukts(){
+        return $this->hasMany(Ukt::class);
+    }
+
+    public function pelatih()
+    {
+        return $this->hasOne(Anggota::class, 'nama_anggota','username');
+    }
 }

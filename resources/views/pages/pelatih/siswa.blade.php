@@ -5,6 +5,9 @@
         border: 1px solid;
     }
 </style>
+@if (Session::has('error'))
+    @include('sweetalert::alert')
+@endif
 @if(Session::has('success'))
  @include('sweetalert::alert')    
  @php Session::forget('success'); @endphp  
@@ -16,17 +19,7 @@
         </h4>
     </div>
     <div class="card-body">
-        <div class="d-flex justify-content-center align-items-center">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Cabang +</button>
-        <form action="{{ route('anggota.index') }}" method="get">
-            <select name="kategori" id="" class="form-select" style="width: 150px;">
-                <option value="">--filter--</option>
-                @foreach ($tingkat as $item)
-                    <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>
-                @endforeach
-            </select>
-        </form>
-    </div>
         <hr>
         <div class="table-responsive mt-3">
             <table id="basic-datatables" class="display table table-striped table-bordered table-hover">
@@ -44,12 +37,13 @@
                         <th>Prestasi Diraih</th>
                         <th>Photo</th>
                         <th>Pengalaman Organisasi</th>
-                        {{-- <th>cabang</th> --}}
+                        <th>cabang</th>
+                        <th>status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($anggota as $item)
+                    @foreach ($siswa as $item)
 
                         <tr>
                            <td>{{ $item->id }}</td>
@@ -64,21 +58,34 @@
                            <td>{{ $item->prestasi_yang_diraih }}</td>
                            <td><img style="width: 60px; aspect-ratio: 1/1; background-position: center;" src="{{ asset($item->photo) }}" alt=""></td>
                            <td>{{ $item->pengalaman_organisasi_tapak_suci }}</td>
-                           {{-- <td>{{ $item->cabang->nama_cabang }}</td> --}}
+                           <td>{{ $item->cabang->nama_cabang }}</td>
                            <td>
+            @if($item->ukt_nic)
+                @if($item->tingkat_saat_ini == $item->tingkatan_selanjutnya)
+                    <span class="badge bg-success text-white">Naik Tingkat</span>
+                @else
+                    <span class="badge bg-warning text-dark">Terdaftar UKT</span>
+                @endif
+            @else
+                <span class="badge bg-danger text-white">Belum UKT</span>
+            @endif
+        </td>
+                           <td style="display: flex; flex-direction: column; gap: 6px;">
                             <button style="box-shadow: 0px 3px 4px blue" class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Aksi
                             </button>
                             <div class="dropdown-menu justify-content-center align-items-center flex-column" aria-labelledby="dropdownMenuButton">
-                                <button class="btn btn-warning btn-sm w-100" data-bs-toggle="modal" data-bs-target="#editAnggota{{ $item->nomor_induk }}">Edit</button>
+                                <button class="btn btn-primary" onclick="handleUpdate('{{ $item->nomor_induk }}', '{{ $item->ukt_nic }}')">Update Tingkatan</button>
                                 <form action="{{route('anggota.destroy',['anggota' => $item->nomor_induk])}}" method="post" class="mt-3">
                                     @csrf
                                     @method('DELETE')                 
                                 <button style="box-shadow:0px 3px 6px rgb(79, 77, 77); width: 40px;"  class="btn btn-danger justify-content-center align-items-center d-flex btn-sm w-100" onclick="return confirm('APakah Yakin Akan Hapus Data Ini?')">Hapus</button>
                                 </form>
                             </div>
+                            <button class="btn btn-sm btn-warning text-white" name="ukt" data-bs-toggle="modal" data-bs-target="#UktModal{{ $item->nomor_induk }}">+ Ukt</button>
                         </td>
                         </tr>
+                        
                         <div class="modal fade" id="editAnggota{{ $item->nomor_induk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -87,7 +94,7 @@
                                         <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="{{ route('anggota.update', ['anggota' => $item->nomor_induk]) }}" method="POST" enctype="multipart/form-data">
+                                        <form action="{{ route('pelatih.update',['siswa'=>$item->nomor_induk]) }}" method="POST" enctype="multipart/form-data">
                                             @method('PUT')
                                             {{ csrf_field() }}
                                         
@@ -140,14 +147,15 @@
         <textarea name="prestasi" id="prestasi" class="form-control" cols="10" rows="10" placeholder="Masukan prestasi yang di raih anggota...">{{ $item->prestasi_yang_diraih }}</textarea>
     </div>
     <div class="mb-3">
-        <label for="foto" class="form-label">Foto Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
+        <label for="foto" class="form-label">Foto Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*Wajib menggunakan seragam tapak suci</span>)</b></sup></label>
         <input type="file" name="foto" class="form-control" id="foto">
     </div>
     <div class="mb-3">
         <label for="pengalaman" class="form-label">Pengalaman di organisasi tapak suci <sup>( jika ada )</sup></label>
         <textarea name="pengalaman" id="pengalaman" class="form-control" cols="10" rows="10" placeholder="Masukan pengalaman anggota di organisasi tapak suci...">{{ $item->pengalaman_organisasi_tapak_suci }}</textarea>
     </div>
-    {{-- <div class="mb-3">
+    
+    <div class="mb-3">
         <label for="cabang" class="form-label">Cabang Pelatihan <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
         <select name="cabang" class="form-select" id="cabang">
             <option value="">--Pilih Cabang Pelatihan--</option>
@@ -155,7 +163,7 @@
                 <option value="{{ $item2->nomor_induk_cabang }}" {{ $item->kode_cabang == $item2->nomor_induk_cabang ? 'selected' : '' }}>{{ $item2->nama_cabang }}</option>
             @endforeach
         </select>
-    </div> --}}
+    </div>
 
                         
                                             
@@ -171,7 +179,77 @@
                                         </form>
                                 </div>
                             </div>
-                        </div>             
+                        </div>   
+                        <div class="modal fade" id="alertModal{{ $item->nomor_induk }}" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="alertModalLabel">Alert</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Siswa ini belum terdaftar di UKT. Mohon daftarkan siswa terlebih dahulu.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            function handleUpdate(nomorInduk, uktNic) {
+                                if (uktNic) {
+                                    var modalId = '#editAnggota' + nomorInduk;
+                                    var modal = new bootstrap.Modal(document.querySelector(modalId));
+                                    modal.show();
+                                } else {
+                                    var alertModalId = '#alertModal' + nomorInduk;
+                                    var alertModal = new bootstrap.Modal(document.querySelector(alertModalId));
+                                    alertModal.show();
+                                }
+                            }
+                            </script>
+                         <div class="modal fade" id="UktModal{{ $item->nomor_induk }}" tabindex="-1" aria-labelledby="UktModal{{ $item->nomor_induk }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Form Tambah Ukt</h5>
+                                        <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('ukt.store') }}" method="POST">
+                                            {{ csrf_field() }}
+                                            <input type="hidden" name="id" class="form-control" placeholder="id">
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Nomor Induk Siswa</label>
+                                                <input type="text" name="nic" value="{{ $item->nomor_induk }}" placeholder="" required class="form-control" id="" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Nama siswa</label>
+                                                <input type="text" name="nama_siswa" value="{{ $item->nama_anggota }}" class="form-control" placeholder="Masukan Nama Cabang...." required id="" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Tingkat saat ini</label>
+                                                <input type="text" name="saat_ini" value="{{ $item->tingkatan->nomor_tingkatan }}" class="form-control" placeholder="Masukan Alamat Cabang..." required id="" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Tingkat Selanjutnya</label>
+                                                <select name="selanjutnya" class="form-select" id="">
+                                                    <option value="">--Tingkatan Selanjutnya--</option>
+                                                    @foreach ($tingkat as $item)
+                                                        <option value="{{ $item->nomor_tingkatan }}">{{ $item->nama_tingkatan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                        </form>
+                                </div>
+                            </div>
+                        </div>           
                         @endforeach
                 </tbody>
             </table>
@@ -187,7 +265,7 @@
                 <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('anggota.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pelatih.store') }}" method="POST" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="mb-4">
                         <span class="" style="font-size: 11px;">
@@ -256,7 +334,7 @@
                         <textarea name="pengalaman" id="" class="form-control" cols="10" rows="10" placeholder="Masukan pengalaman anggota di organisasi tapak suci..."></textarea>
                     </div>
 
-                    {{-- <div class="mb-3">
+                     <div class="mb-3">
                         <label for="" class="form-label">Cabang Pelatihan <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
                         <select name="cabang" class="form-select" id="">
                             <option value="">--Pilih Cabang Pelatihan--</option>
@@ -264,7 +342,7 @@
                                 <option value="{{ $item->nomor_induk_cabang }}">{{ $item->nama_cabang }}</option>
                             @endforeach
                         </select>
-                    </div> --}}
+                    </div>
 
                     
 

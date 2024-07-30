@@ -30,4 +30,9 @@ public function anggota()
     return $this->hasMany(Anggota::class, 'kode_cabang', 'nomor_induk_cabang');
 }
 
+public function siswa()
+{
+    return $this->hasMany(Anggota::class, 'kode_cabang', 'nomor_induk_cabang');
+}
+
 }

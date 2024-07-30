@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('table_anggota', function (Blueprint $table) {
+        Schema::create('table_siswa', function (Blueprint $table) {
             $table->id();
             $table->integer('nomor_induk')->unique();
             $table->string('nama_anggota');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('prestasi_yang_diraih')->nullable();
             $table->string('photo');
             $table->string('pengalaman_organisasi_tapak_suci')->nullable();
-            $table->string('kode_cabang')->nullable();
+            $table->string('kode_cabang');
             $table->timestamps();
         });
     }

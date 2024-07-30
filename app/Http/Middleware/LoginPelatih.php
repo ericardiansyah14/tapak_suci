@@ -4,11 +4,12 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Symfony\Component\HttpFoundation\Response;
 
-class Login
+class LoginPelatih
 {
     /**
      * Handle an incoming request.
@@ -22,6 +23,5 @@ class Login
         }
         Alert::warning('Warning','Anda harus melakukan login terlebih dahulu');
         return redirect('/')->with('warning','Anda Harus Melakukan Login Terlebih Dahulu');
-
     }
 }

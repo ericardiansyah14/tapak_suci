@@ -41,6 +41,7 @@ class TingnkatanController extends Controller
         Tingkatan::create([
             'id' => $request->id,
             'nomor_tingkatan' => $request->nik,
+            'kategori' => $request->kategori,
             'nama_tingkatan' => $request->nama_ketingkatan,
         ]);
         Alert::success('Success','Data Tingkatan Berhasil Di simpan');
@@ -71,6 +72,7 @@ class TingnkatanController extends Controller
         $data = Tingkatan::where('nomor_tingkatan',$nomor_tingkatan)->firstOrFail();
 
         $data -> nama_tingkatan = $request->input('nama_ketingkatan');
+        $data -> kategori = $request->input('kategori');
 
         $data->update();
         Alert::success('Success', 'Data Tingkatan berhasil di perbarui');

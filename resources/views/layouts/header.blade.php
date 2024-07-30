@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -87,9 +88,18 @@
                 <div class="collapse" id="dashboard">
                   <ul class="nav nav-collapse">
                     <li>
+                      @if (Auth::user()->role == 'admin')
+
                       <a href="{{ route('dashboard.index') }}">
                         <span class="sub-item">Dashboard 1</span>
                       </a>
+                                                
+                      @endif
+                      @if (Auth::user()->role == 'pelatih')
+                      <a href="{{ route('Dashpelatih.index') }}">
+                        <span class="sub-item">Dashboard pelatih</span>
+                      </a>
+                      @endif
                     </li>
                   </ul>
                 </div>
@@ -103,20 +113,44 @@
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#base">
                   <i class="fas fa-layer-group"></i>
+                  @if (Auth::user()->role == 'admin')
                   <p>Data Anggota</p>
+                  @endif
+                  @if (Auth::user()->role == 'pelatih')
+                  <p>Kontrol Cabang</p>
+                  @endif
                   <span class="caret"></span>
                 </a>
                 <div class="collapse" id="base">
                   <ul class="nav nav-collapse">
+                    @if (Auth::user()->role == 'admin')
                     <li>
                       <a href="{{ route('anggota.index') }}">
-                        <span class="sub-item">Data Keanggotaan Tapak Suci</span>
+                        <span class="sub-item">Data Siswa Tapak Suci</span>
                       </a>
                     </li>
-                    
+                    @endif
+                    @if (Auth::user()->role == 'pelatih')
+
+                    <li>
+                      <a href="{{ route('pelatih.index') }}">
+                        <span class="sub-item">Data siswa Tapak Suci</span>
+                      </a>
+                      <a href="{{ route('ukt.index') }}">
+                        <span class="sub-item">Data ukt</span>
+                      </a>
+                      <a href="{{ route('prestasi.index') }}">
+                        <span class="sub-item">Data Prestasi</span>
+                      </a>
+                    </li>
+                                            
+                    @endif
                   </ul>
                 </div>
               </li>
+              @if (Auth::user()->role == 'admin')
+                  
+              
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLayouts">
                   <i class="fas fa-th-list"></i>
@@ -149,7 +183,7 @@
                   </ul>
                 </div>
               </li>
-             
+             @endif
             </ul>
           </div>
         </div>
@@ -163,11 +197,11 @@
             <div class="logo-header" data-background-color="dark">
               <a href="index.html" class="logo">
                 <img
-                  src="assets/img/kaiadmin/logo_light.svg"
-                  alt="navbar brand"
-                  class="navbar-brand"
-                  height="20"
-                />
+                src="assets/img/kaiadmin/49785292317_2d7b29d55f-removebg-preview.png"
+                alt="navbar brand"
+                class="navbar-brand"
+                height="20" style="height: 55px; margin-left: -10px;"
+              /> <h3 style="padding-top: 5px; font-family: verdana; color: white;">Tapak Suci</h3>
               </a>
               <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
@@ -195,31 +229,6 @@
               </nav>
 
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-                <li
-                  class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none"
-                >
-                  <a
-                    class="nav-link dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                    role="button"
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                  >
-                    <i class="fa fa-search"></i>
-                  </a>
-                  <ul class="dropdown-menu dropdown-search animated fadeIn">
-                    <form class="navbar-left navbar-form nav-search">
-                      <div class="input-group">
-                        <input
-                          type="text"
-                          placeholder="Search ..."
-                          class="form-control"
-                        />
-                      </div>
-                    </form>
-                  </ul>
-                </li>
                 
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a

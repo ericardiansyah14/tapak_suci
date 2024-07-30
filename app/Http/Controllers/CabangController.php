@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use App\Models\Cabang;
+use App\Models\User;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -13,12 +15,12 @@ class CabangController extends Controller
      */
     public function index()
     {
+        $anggota = Anggota::all();
         $cabang = Cabang::all();
         $lastCabang = Cabang::orderBy('nomor_induk_cabang', 'asc')->first();
         $lastKode = $lastCabang ? intval(substr($lastCabang->nomor_induk_cabang, 3)) : 0;
         $newKode = 'CBG' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
-
-        return view('pages.admin.anggota', compact('cabang', 'newKode'));
+        return view('pages.admin.anggota', compact('cabang', 'newKode','anggota'));
     }
     public function create(Request $request)
     {
@@ -26,7 +28,7 @@ class CabangController extends Controller
     }
     public function store(Request $request)
     {
-        $lastCabang = Cabang::orderBy('id', 'desc')->first();
+        $lastCabang = Cabang::orderBy('nomor_induk_cabang', 'desc')->first();
         $lastKode = $lastCabang ? intval(substr($lastCabang->nomor_induk_cabang, 3)) : 0;
         $newKode = 'CBG' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
 
@@ -37,8 +39,15 @@ class CabangController extends Controller
             'alamat_cabang' => $request->alamat,
             'pelatih_cabang' => $request->pelatih,
         ]);
-        Alert::success('Success', 'Data Cabang berhasil ditambahkan');
-        return redirect()->back()->with('success', 'Data Cabang berhasil ditambahkan');
+
+        User::create([
+            'name' => $request->pelatih,
+            'username' => $request->pelatih,
+            'role' => 'pelatih',
+            'password' => $request->pelatih,
+        ]);
+        Alert::success('Success', 'Data Anggota berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Data Anggota berhasil ditambahkan');
     }
 
     /**

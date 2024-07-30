@@ -11,6 +11,7 @@ class Tingkatan extends Model
     use HasFactory;
     protected $table = 'table_tingkatan'; 
     protected $fillable = [
+        'kategori',
         'nomor_tingkatan',
         'nama_tingkatan',
     ];
@@ -26,5 +27,11 @@ public function anggota()
 {
     return $this->hasMany(Anggota::class, 'kode_angkatan', 'nomor_tingkatan');
 }
+
+public function ukt()
+{
+    return $this->hasMany(Ukt::class, 'tingkatan_selanjutnya', 'nomor_tingkatan');
+}
+
 
 }

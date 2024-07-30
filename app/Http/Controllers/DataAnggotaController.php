@@ -18,8 +18,8 @@ class DataAnggotaController extends Controller
     public function index()
     {
         $cabang = Cabang::all();
-        $tingkat = Tingkatan::all();
-        $anggota = Anggota::with(['cabang', 'tingkatan'])->get();
+        $tingkat = Tingkatan::whereNot('kategori','siswa')->get();
+        $anggota = Anggota::with(['tingkatan'])->get();
         return view('pages.admin.data_anggota',compact('cabang','tingkat','anggota'));
     }
 
@@ -46,7 +46,6 @@ class DataAnggotaController extends Controller
             'tingkatan' => 'required|string|max:50',
             'tgl_ijazah' => 'required|date',
             'foto' => 'required|file|mimes:jpeg,png,jpg|max:10240',
-            'cabang' => 'required|string|max:50',
             'prestasi' => 'nullable|string|max:255',
             'pengalaman' => 'nullable|string|max:255'
         ]);
@@ -70,7 +69,7 @@ class DataAnggotaController extends Controller
                 'prestasi_yang_diraih' => $request->prestasi,
                 'photo' => $publicurl,
                 'pengalaman_organisasi_tapak_suci' => $request->pengalaman,
-                'kode_cabang' => $request->cabang,
+
             ]);
     
             Alert::success('Success', 'Data anggota berhasil ditambahkan');
