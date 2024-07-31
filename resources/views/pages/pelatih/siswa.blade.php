@@ -229,8 +229,13 @@
                                                 <input type="text" name="nama_siswa" value="{{ $item->nama_anggota }}" class="form-control" placeholder="Masukan Nama Cabang...." required id="" readonly>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Tingkat saat ini</label>
-                                                <input type="text" name="saat_ini" value="{{ $item->tingkatan->nomor_tingkatan }}" class="form-control" placeholder="Masukan Alamat Cabang..." required id="" readonly>
+                                                <label for="nama_tingkatan" class="form-label">Tingkat saat ini</label>
+    <span class="form-control">{{ $item->tingkatan->nama_tingkatan }}</span>
+    <input 
+        type="hidden" 
+        name="saat_ini" 
+        value="{{ $item->tingkatan->nomor_tingkatan }}"
+    >
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Tingkat Selanjutnya</label>

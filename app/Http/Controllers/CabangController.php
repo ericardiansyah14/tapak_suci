@@ -37,6 +37,8 @@ class CabangController extends Controller
             'nomor_induk_cabang' => $request->nic,
             'nama_cabang' => $request->nama_cabang,
             'alamat_cabang' => $request->alamat,
+            'kelurahan' => $request->kelurahan,
+            'kecamatan' => $request->kecamatan,
             'pelatih_cabang' => $request->pelatih,
         ]);
 
@@ -75,6 +77,8 @@ class CabangController extends Controller
 
         $data -> nama_cabang = $request->input('nama_cabang');
         $data -> alamat_cabang = $request->input('alamat');
+        $data -> kelurahan = $request->input('kelurahan');
+        $data -> kecamatan = $request->input('kecamatan');
         $data -> pelatih_cabang = $request->input('pelatih');
 
         $data->update();

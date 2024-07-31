@@ -14,6 +14,8 @@ class Cabang extends Model
         'nomor_induk_cabang',
         'nama_cabang',
         'alamat_cabang',
+        'kelurahan',
+        'kecamatan',
         'pelatih_cabang',
     ];
     protected static function boot()

@@ -17,7 +17,7 @@
     </div>
     <div class="card-body">
         <div class="d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Cabang +</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Anggota +</button>
         <form action="{{ route('anggota.index') }}" method="get">
             <select name="kategori" id="" class="form-select" style="width: 150px;">
                 <option value="">--filter--</option>
@@ -62,7 +62,7 @@
                            <td>{{ $item->tingkatan->nama_tingkatan }}</td>
                            <td>{{ $item->tangga_ijazah_tingkatan }}</td>
                            <td>{{ $item->prestasi_yang_diraih }}</td>
-                           <td><img style="width: 60px; aspect-ratio: 1/1; background-position: center;" src="{{ asset($item->photo) }}" alt=""></td>
+                           <td><img style="width: 60px; aspect-ratio: 1/1; background-position: center;" class="img img-avatar" src="{{ asset($item->photo) }}" alt=""></td>
                            <td>{{ $item->pengalaman_organisasi_tapak_suci }}</td>
                            {{-- <td>{{ $item->cabang->nama_cabang }}</td> --}}
                            <td>

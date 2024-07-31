@@ -12,7 +12,7 @@
 <div class="card mt-4 rounded">
     <div class="card-header bg-primary">
         <h4 class="text-white">
-            Tabel Data Ketingkatan
+            Tabel Tingkatan Anggota
         </h4>
     </div>
     <div class="card-body">

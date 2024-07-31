@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('nomor_induk_cabang')->unique();
             $table->string('nama_cabang');
             $table->string('alamat_cabang');
+            $table->string('kelurahan');
+            $table->string('kecamatan');
             $table->string('pelatih_cabang');
             $table->timestamps();
         });

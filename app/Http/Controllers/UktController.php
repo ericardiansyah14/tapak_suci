@@ -93,6 +93,9 @@ public function index()
      */
     public function destroy(string $id)
     {
-        //
+        $ukt = Ukt::where('id',$id)->firstOrFail();
+        $ukt->delete();
+        Alert::success('Berhasil','Ukt siswa ' .$ukt->nama_siswa. ' berhasil dibatalkan');
+        return redirect()->back()->with('success','Ukt siswa ini berhasil dibatalkan');
     }
 }

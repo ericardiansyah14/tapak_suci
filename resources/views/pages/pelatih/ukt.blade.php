@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('body')
+@if(Session::has('success'))
+ @include('sweetalert::alert')    
+ @php Session::forget('success'); @endphp  
+                @endif
     <div class="card mt-4 rounded">
         <div class="card-header bg-primary">
             <h4>Data Ukt Siswa</h4>
@@ -15,6 +19,7 @@
                             <th>Tingkat saat ini</th>
                             <th>Status kenaikan tingkat</th>
                             <th>Tingkat Selanjutnya</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,6 +40,13 @@
         <span class="badge bg-danger">Tidak Ditemukan</span>
     @endif</td>
                                 <td>{{ $data->nama_tingkatan_selanjutnya }}</td>
+                                <td>
+                                    <form action="{{ route('ukt.destroy',['ukt'=>$data->id]) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin membatlkan ukt siswa ini?')">Batlkan</button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                     </tbody>

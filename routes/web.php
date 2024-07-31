@@ -45,6 +45,7 @@ use App\Http\Controllers\TingnkatanController;
     Route::put('/pelatih/{siswa}/update', [PelatihController::class, 'update'])->name('pelatih.update');
     Route::get('/ukt',[UktController::class, 'index'])->name('ukt.index')->middleware('LoginPelatih');
     Route::post('/ukt',[UktController::class, 'store'])->name('ukt.store');
+    Route::delete('/ukt/{ukt}/destroy',[UktController::class, 'destroy'])->name('ukt.destroy')->middleware('LoginPelatih');
     Route::get('/Dashpelatih', [DashboardPelatihController::class, 'index'])->name('Dashpelatih.index')->middleware('LoginPelatih');
     Route::get('/prestasi',[PrestasiController::class, 'index'])->name('prestasi.index')->middleware('LoginPelatih');
     Route::post('/prestasi',[PrestasiController::class, 'store'])->name('prestasi.store');

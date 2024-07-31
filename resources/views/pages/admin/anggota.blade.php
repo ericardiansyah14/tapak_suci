@@ -26,6 +26,8 @@
                         <th>Nomor induk cabang</th>
                         <th>Nama cabang</th>
                         <th>Alamat Cabang</th>
+                        <th>Kelurahan</th>
+                        <th>Kecamatan</th>
                         <th>Pelatih Cabang</th>
                         <th>Action</th>
                     </tr>
@@ -37,6 +39,8 @@
                             <td>{{ $data->nomor_induk_cabang }}</td>
                             <td>{{ $data->nama_cabang }}</td>
                             <td>{{ $data->alamat_cabang }}</td>
+                            <td>{{ $data->kelurahan }}</td>
+                            <td>{{ $data->kecamatan }}</td>
                             <td>{{ $data->pelatih_cabang }}</td>
                             <td>
                                 <button style="box-shadow: 0px 3px 4px blue" class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -75,6 +79,14 @@
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Alamat Cabang</label>
                                                 <input type="text" name="alamat" class="form-control" value="{{ $data->alamat_cabang }}" placeholder="Masukan Alamat Cabang..." required id="">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Kelurahan</label>
+                                                <input type="text" name="kelurahan" value="{{ $data->kelurahan }}" class="form-control" placeholder="Masukan Nama kelurahan...." required id="">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Kecamatan</label>
+                                                <input type="text" name="kecamatan" value="{{ $data->kecamatan }}" class="form-control" placeholder="Masukan Nama kecamatan...." required id="">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Pelatih Cabang</label>
@@ -119,6 +131,14 @@
                     <div class="mb-3">
                         <label for="" class="form-label">Alamat Cabang</label>
                         <input type="text" name="alamat" class="form-control" placeholder="Masukan Alamat Cabang..." required id="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Kelurahan</label>
+                        <input type="text" name="kelurahan" class="form-control" placeholder="Masukan Nama kelurahan...." required id="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Kecamatan</label>
+                        <input type="text" name="kecamatan" class="form-control" placeholder="Masukan Nama kecamatan...." required id="">
                     </div>
                     <div class="mb-3">
                         <select name="pelatih" class="form-select" id="">
