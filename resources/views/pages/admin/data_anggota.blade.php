@@ -16,16 +16,24 @@
         </h4>
     </div>
     <div class="card-body">
-        <div class="d-flex justify-content-center align-items-center">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Anggota +</button>
-        <form action="{{ route('anggota.index') }}" method="get">
-            <select name="kategori" id="" class="form-select" style="width: 150px;">
+        <div class="d-flex justify-content-between align-items-center">
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Anggota +</button>
+        <div style="flex-grow: 1;"></div>
+        <form id="filterForm" class="d-flex" action="{{ route('anggota.index') }}" method="get">
+            <select name="kategori" id="kategoriSelect" class="form-select" style="width: 150px; margin-right: 15px;">
                 <option value="">--filter--</option>
-                @foreach ($tingkat as $item)
+                @foreach ($tingkat1 as $item)
                     <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>
                 @endforeach
             </select>
+            <button class="btn btn-warning btn-sm text-white" id="resetButton" name="reset">Reset Filter <i class="fa-solid fa-repeat"></i></button>
         </form>
+        <script>
+            document.getElementById('resetButton').addEventListener('click', function() {
+        document.getElementById('kategoriSelect').value = '';
+        document.getElementById('filterForm').submit();
+    });
+        </script>
     </div>
         <hr>
         <div class="table-responsive mt-3">

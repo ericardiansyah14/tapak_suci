@@ -15,12 +15,22 @@ class DataAnggotaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $cabang = Cabang::all();
+        $kategori = $request->input('kategori');
+        $tingkat1 = Tingkatan::all();
         $tingkat = Tingkatan::whereNot('kategori','siswa')->get();
-        $anggota = Anggota::with(['tingkatan'])->get();
-        return view('pages.admin.data_anggota',compact('cabang','tingkat','anggota'));
+    
+        $anggota = Anggota::with('tingkatan')
+                    ->when($kategori, function ($query, $kategori) {
+                        return $query->whereHas('tingkatan', function ($query) use ($kategori) {
+                            $query->where('kategori', $kategori);
+                        });
+                    })
+                    ->get();
+    
+        return view('pages.admin.data_anggota',compact('cabang','tingkat','anggota','tingkat1'));
     }
 
     /**
