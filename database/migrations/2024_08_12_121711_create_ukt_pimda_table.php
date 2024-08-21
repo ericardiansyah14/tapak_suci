@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ukt', function (Blueprint $table) {
-            $table->id();
-            $table->string('nomor_induk')->unique();
-            $table->string('nama_siswa');
-            $table->string('tingkatan_saat_ini');
-            $table->string('tingkatan_selanjutnya');
-            $table->unsignedBigInteger('ukt_pimda_id'); 
-           
+        Schema::create('ukt_pimda', function (Blueprint $table) {
+            $table->id(); // id default adalah unsignedBigInteger
+            $table->string('lokasi_ukt');
+            $table->string('tanggal_ukt');
+            $table->string('ketua_panitia');
             $table->timestamps();
         });
     }
@@ -27,6 +25,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ukt');
+        Schema::dropIfExists('ukt_pimda');
     }
 };
+
+

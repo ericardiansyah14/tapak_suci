@@ -29,8 +29,12 @@ class DataAnggotaController extends Controller
                         });
                     })
                     ->get();
+
+                    $lastanggota = Anggota::orderBy('nomor_induk', 'desc')->first();
+    $lastKode = $lastanggota ? intval(substr($lastanggota->nomor_induk, 6)) : 0;
+    $newKode = '11425' . str_pad($lastKode + 1, 5 - strlen($lastKode + 1), '0', STR_PAD_LEFT);
     
-        return view('pages.admin.data_anggota',compact('cabang','tingkat','anggota','tingkat1'));
+        return view('pages.admin.data_anggota',compact('cabang','tingkat','anggota','tingkat1','newKode'));
     }
 
     /**
@@ -54,17 +58,13 @@ class DataAnggotaController extends Controller
             'alamat' => 'required|string|max:255',
             'wa' => 'required|string|max:15',
             'tingkatan' => 'required|string|max:50',
-            'tgl_ijazah' => 'required|date',
-            'foto' => 'required|file|mimes:jpeg,png,jpg|max:10240',
-            'prestasi' => 'nullable|string|max:255',
-            'pengalaman' => 'nullable|string|max:255'
         ]);
     
-        try {
-            // Upload foto
-            $fileName = Str::uuid() . '.' . $request->file('foto')->getClientOriginalExtension();
-            $path = $request->file('foto')->storeAs('public', $fileName);
-            $publicurl = Storage::url($path);
+        // try {
+        //     // // Upload foto
+        //     // $fileName = Str::uuid() . '.' . $request->file('foto')->getClientOriginalExtension();
+        //     // $path = $request->file('foto')->storeAs('public', $fileName);
+        //     // $publicurl = Storage::url($path);
     
             Anggota::create([
                 'id' => $request->id,
@@ -75,19 +75,14 @@ class DataAnggotaController extends Controller
                 'alamat' => $request->alamat,
                 'telepon_wa' => $request->wa,
                 'kode_angkatan' => $request->tingkatan,
-                'tangga_ijazah_tingkatan' => $request->tgl_ijazah,
-                'prestasi_yang_diraih' => $request->prestasi,
-                'photo' => $publicurl,
-                'pengalaman_organisasi_tapak_suci' => $request->pengalaman,
-
             ]);
     
             Alert::success('Success', 'Data anggota berhasil ditambahkan');
             return redirect()->back()->with('success', 'Data Keanggotaan berhasil ditambahkan');
     
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: '.$e->getMessage());
-        }
+        // } catch (\Exception $e) {
+        //     return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: '.$e->getMessage());
+        // }
     }
 
     /**

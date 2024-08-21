@@ -16,6 +16,7 @@ class Cabang extends Model
         'alamat_cabang',
         'kelurahan',
         'kecamatan',
+        'status',
         'pelatih_cabang',
     ];
     protected static function boot()

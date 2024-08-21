@@ -20,7 +20,7 @@ class PelatihController extends Controller
      */
     public function index()
     {
-        $tingkat = Tingkatan::all();
+        $tingkat = Tingkatan::where('kategori','siswa');
     $pelatihUsername = Auth::user()->username;
 
     $cabang = DB::select('SELECT * FROM table_cabang WHERE pelatih_cabang = ? LIMIT 1', [$pelatihUsername]);
@@ -35,11 +35,19 @@ class PelatihController extends Controller
         'table_anggota.*',
         'ukt.nomor_induk as ukt_nic',
         'ukt.tingkatan_selanjutnya', 
-        'table_tingkatan.nomor_tingkatan as tingkat_saat_ini'  
+        'table_tingkatan.nomor_tingkatan as tingkat_saat_ini'
     )
+    ->distinct() // Menambahkan distinct untuk menghindari duplikat
     ->get();
+
+    $lastanggota = Anggota::orderBy('nomor_induk', 'desc')->first();
+    $lastKode = $lastanggota ? intval(substr($lastanggota->nomor_induk, 6)) : 0;
+    $newKode = 'C11425' . str_pad($lastKode + 1, 5 - strlen($lastKode + 1), '0', STR_PAD_LEFT);
     
-    return view('pages.pelatih.siswa', compact('siswa', 'tingkat', 'cabang'));
+       
+
+    
+    return view('pages.pelatih.siswa', compact('siswa', 'tingkat', 'cabang','newKode'));
     }
 
     /**
@@ -49,6 +57,9 @@ class PelatihController extends Controller
     {
         //
     }
+    public function lihat(){
+       
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -56,17 +67,14 @@ class PelatihController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nia' => 'required|integer',
+            'nia' => 'required|string|max:11',
             'nama_anggota' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tgl_anggota' => 'required|date',
             'alamat' => 'required|string|max:255',
             'wa' => 'required|string|max:15',
             'tingkatan' => 'required|string|max:50',
-            'tgl_ijazah' => 'required|date',
             'foto' => 'required|file|mimes:jpeg,png,jpg|max:10240',
-            'prestasi' => 'nullable|string|max:255',
-            'pengalaman' => 'nullable|string|max:255',
             'cabang' => 'required|string|max:50',
         ]);
     
@@ -85,10 +93,7 @@ class PelatihController extends Controller
                 'alamat' => $request->alamat,
                 'telepon_wa' => $request->wa,
                 'kode_angkatan' => $request->tingkatan,
-                'tangga_ijazah_tingkatan' => $request->tgl_ijazah,
-                'prestasi_yang_diraih' => $request->prestasi,
                 'photo' => $publicurl,
-                'pengalaman_organisasi_tapak_suci' => $request->pengalaman,
                 'kode_cabang' => $request->cabang,
 
             ]);
@@ -99,6 +104,9 @@ class PelatihController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: '.$e->getMessage());
         }
+    }
+    public function insert(Request $request){
+        
     }
 
     /**

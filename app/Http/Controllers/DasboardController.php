@@ -19,29 +19,65 @@ class DasboardController extends Controller
     public function index()
     {
     
-        $tingkatanCounts = Anggota::join('table_tingkatan', 'table_anggota.kode_angkatan', '=', 'table_tingkatan.nomor_tingkatan')
-            ->select('table_tingkatan.kategori as tingkatan', DB::raw('count(*) as total'))
-            ->groupBy('table_tingkatan.kategori')
-            ->get();
-        $labels = $tingkatanCounts->pluck('tingkatan')->toArray();
-        $data = $tingkatanCounts->pluck('total')->toArray();
-        $colors = [];
-        foreach ($labels as $label) {
-            if ($label == 'siswa') {
-                $colors[] = '#3498db';
-            } elseif ($label == 'pendekar') {
-                $colors[] = '#e74c3c'; 
-            } elseif ($label == 'kader') {
-                $colors[] = '#f1c40f'; 
-            } else {
-                $colors[] = '#95a5a6'; 
-            }
-        }
-        $chartAnggota = LarapexChart::pieChart()
-        ->setTitle('Jumlah Anggota Berdasarkan Tingkatan')
-        ->addData($data)
-        ->setLabels($labels)
-        ->setColors($colors); 
+        $jumlahPendekarbesar = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'pendekar besar');
+        })->count();
+        $jumlahPendekarutama = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'pendekar utama');
+        })->count();
+        $jumlahPendekarkepala = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'pendekar kepala');
+        })->count();
+        $jumlahPendekarmadya = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'pendekar madya');
+        })->count();
+        $jumlahPendekarMuda = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'pendekar muda');
+        })->count();
+
+        $jumlahKaderMuda = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'kader muda');
+        })->count();
+        $jumlahKaderkepala = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'kader kepala');
+        })->count();
+        $jumlahKaderutama = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'kader utama');
+        })->count();
+        $jumlahKadermadya = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'kader madya');
+        })->count();
+        $jumlahKaderdsasar = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'kader dasar');
+        })->count();
+        $jumlahsiswa4 = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'siswa 4');
+        })->count();
+        $jumlahsiswa3 = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'siswa 3');
+        })->count();
+       $jumlahsiswa2 = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'siswa 2');
+        })->count();
+       $jumlahsiswa1 = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'siswa 1');
+        })->count();
+       $jumlahsiswadasar = Anggota::whereHas('tingkatan', function($query) {
+            $query->where('nama_tingkatan', 'siswa dasar');
+        })->count();
+       
+
+        $totalCabang = Cabang::count();
+
+    // Menyiapkan data untuk pie chart jumlah cabang
+    $chartTotalCabang = LarapexChart::pieChart()
+        ->setTitle('Jumlah Total Cabang')
+        ->addData([$totalCabang])  // Menggunakan satu segmen untuk total cabang
+        ->setLabels(['Total Cabang'])
+        ->setColors([sprintf('#%06X', mt_rand(0, 0xFFFFFF))]);
+        
+        
+        
         function generateRandomColor() {
             return sprintf('#%06X', mt_rand(0, 0xFFFFFF));
         }
@@ -74,7 +110,7 @@ class DasboardController extends Controller
             ->setColors($colors); 
             
         
-        return view('pages.dashboard', compact('chartAnggota','chartCabang'));
+        return view('pages.dashboard', compact('jumlahPendekarutama','jumlahsiswadasar','jumlahsiswa1','jumlahsiswa2','jumlahsiswa3','jumlahsiswa4','jumlahKaderdsasar','jumlahKadermadya','jumlahKaderutama','jumlahKaderkepala','jumlahPendekarbesar','jumlahPendekarmadya','chartTotalCabang','jumlahPendekarbesar','jumlahPendekarkepala','chartCabang','jumlahPendekarMuda','jumlahKaderMuda'));
     }
 
     

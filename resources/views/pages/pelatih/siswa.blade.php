@@ -33,12 +33,8 @@
                         <th>alamat</th>
                         <th>telepon/wa</th>
                         <th>Tingkatan</th>
-                        <th>Tanggal Ijazah</th>
-                        <th>Prestasi Diraih</th>
                         <th>Photo</th>
-                        <th>Pengalaman Organisasi</th>
                         <th>cabang</th>
-                        <th>status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -48,41 +44,28 @@
                         <tr>
                            <td>{{ $item->id }}</td>
                            <td>{{ $item->nomor_induk }}</td>
-                           <td>{{ $item->nama_anggota }}</td>
-                           <td>{{ $item->tempat_lahir }}</td>
+                           <td style="text-transform: uppercase;">{{ $item->nama_anggota }}</td>
+                           <td style="text-transform: uppercase;">{{ $item->tempat_lahir }}</td>
                            <td>{{ $item->tanggal_lahir }}</td>
                            <td>{{ $item->alamat }}</td>
                            <td>{{ $item->telepon_wa }}</td>
                            <td>{{ $item->tingkatan->nama_tingkatan }}</td>
-                           <td>{{ $item->tangga_ijazah_tingkatan }}</td>
-                           <td>{{ $item->prestasi_yang_diraih }}</td>
                            <td><img style="width: 60px; aspect-ratio: 1/1; background-position: center;" src="{{ asset($item->photo) }}" alt=""></td>
-                           <td>{{ $item->pengalaman_organisasi_tapak_suci }}</td>
                            <td>{{ $item->cabang->nama_cabang }}</td>
-                           <td>
-            @if($item->ukt_nic)
-                @if($item->tingkat_saat_ini == $item->tingkatan_selanjutnya)
-                    <span class="badge bg-success text-white">Naik Tingkat</span>
-                @else
-                    <span class="badge bg-warning text-dark">Terdaftar UKT</span>
-                @endif
-            @else
-                <span class="badge bg-danger text-white">Belum UKT</span>
-            @endif
-        </td>
-                           <td style="display: flex; flex-direction: column; gap: 6px;">
+                    
+                           <td style="">
                             <button style="box-shadow: 0px 3px 4px blue" class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Aksi
                             </button>
                             <div class="dropdown-menu justify-content-center align-items-center flex-column" aria-labelledby="dropdownMenuButton">
-                                <button class="btn btn-primary" onclick="handleUpdate('{{ $item->nomor_induk }}', '{{ $item->ukt_nic }}')">Update Tingkatan</button>
+                                
                                 <form action="{{route('anggota.destroy',['anggota' => $item->nomor_induk])}}" method="post" class="mt-3">
                                     @csrf
                                     @method('DELETE')                 
                                 <button style="box-shadow:0px 3px 6px rgb(79, 77, 77); width: 40px;"  class="btn btn-danger justify-content-center align-items-center d-flex btn-sm w-100" onclick="return confirm('APakah Yakin Akan Hapus Data Ini?')">Hapus</button>
                                 </form>
                             </div>
-                            <button class="btn btn-sm btn-warning text-white" name="ukt" data-bs-toggle="modal" data-bs-target="#UktModal{{ $item->nomor_induk }}">+ Ukt</button>
+                           
                         </td>
                         </tr>
                         
@@ -281,16 +264,16 @@
                     <input type="hidden" name="id" class="form-control" placeholder="id">
                     <div class="mb-3">
                         <label for="" class="form-label">Nomor Induk Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <input type="number" name="nia" value="" placeholder="Masukan Nomor induk anggota..." required class="form-control" id="">
+                        <input type="text" name="nia" value="{{ $newKode }}" placeholder="Masukan Nomor induk anggota..." required class="form-control" id="" readonly>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <input type="text" name="nama_anggota" class="form-control" placeholder="Masukan Nama Anggota..." required id="">
+                        <input type="text" style="text-transform: uppercase;" name="nama_anggota" class="form-control" placeholder="Masukan Nama Anggota..." required id="">
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Tempat Lahir Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <input type="text" name="tempat_lahir" class="form-control" placeholder="Masukan Tempat Lahir Anggota..." required id="">
+                        <input type="text" style="text-transform: uppercase;" name="tempat_lahir" class="form-control" placeholder="Masukan Tempat Lahir Anggota..." required id="">
                     </div>
 
                     <div class="mb-3">
@@ -320,25 +303,11 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="" class="form-label">Tanggal Ijazah Tingkatan <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <input type="date" name="tgl_ijazah" class="form-control" placeholder="Masukan Tanggal Ijazah..." required id="">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Prestasi yang di raih Anggota <sup>(Jika Ada)</sup></label>
-                        <textarea name="prestasi" id="" class="form-control" cols="10" rows="10" placeholder="Masukan prestasi yang di raih anggota..."></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Foto Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
+                        <label for="" class="form-label">Foto Anggota <sup><b style="font-size: 13px">(<span class="text-danger">* wajib menggunakan seragam tapak suci</span>)</b></sup></label>
                         <input type="file" name="foto" class="form-control" id="">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Pengalaman di organisasi tapak suci <sup>( jika ada )</sup></label>
-                        <textarea name="pengalaman" id="" class="form-control" cols="10" rows="10" placeholder="Masukan pengalaman anggota di organisasi tapak suci..."></textarea>
-                    </div>
-
+                 
                      <div class="mb-3">
                         <label for="" class="form-label">Cabang Pelatihan <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
                         <select name="cabang" class="form-select" id="">

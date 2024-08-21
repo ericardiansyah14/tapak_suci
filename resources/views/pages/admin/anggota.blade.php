@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->nomor_induk_cabang }}</td>
-                            <td>{{ $data->nama_cabang }}</td>
+                            <td>{{ $data->nama_cabang }}({{ $data->status }})</td>
                             <td>{{ $data->alamat_cabang }}</td>
                             <td>{{ $data->kelurahan }}</td>
                             <td>{{ $data->kecamatan }}</td>
@@ -127,6 +127,14 @@
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Cabang</label>
                         <input type="text" name="nama_cabang" class="form-control" placeholder="Masukan Nama Cabang...." required id="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Keterangan Cabang</label>
+                        <select name="ket" id="" class="form-select">
+                            <option value="">--luar atau dalam pimda--</option>
+                            <option value="dalam pimda 114">dalam pimda 114</option>
+                            <option value="luar pimda 114">luar pimda 114</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Alamat Cabang</label>

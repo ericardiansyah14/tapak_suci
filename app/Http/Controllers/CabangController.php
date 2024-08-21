@@ -17,9 +17,9 @@ class CabangController extends Controller
     {
         $anggota = Anggota::all();
         $cabang = Cabang::all();
-        $lastCabang = Cabang::orderBy('nomor_induk_cabang', 'asc')->first();
-        $lastKode = $lastCabang ? intval(substr($lastCabang->nomor_induk_cabang, 3)) : 0;
-        $newKode = 'CBG' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
+        $lastCabang = Cabang::orderBy('nomor_induk_cabang', 'desc')->first();
+        $lastKode = $lastCabang ? intval(substr($lastCabang->nomor_induk_cabang, 1)) : 0;
+        $newKode = 'C' . ($lastKode + 1);
         return view('pages.admin.anggota', compact('cabang', 'newKode','anggota'));
     }
     public function create(Request $request)
@@ -29,8 +29,8 @@ class CabangController extends Controller
     public function store(Request $request)
     {
         $lastCabang = Cabang::orderBy('nomor_induk_cabang', 'desc')->first();
-        $lastKode = $lastCabang ? intval(substr($lastCabang->nomor_induk_cabang, 3)) : 0;
-        $newKode = 'CBG' . str_pad($lastKode + 1, 3, '0', STR_PAD_LEFT);
+        $lastKode = $lastCabang ? intval(substr($lastCabang->nomor_induk_cabang, 1)) : 0;
+        $newKode = 'C' . ($lastKode + 1);
 
         Cabang::create([
             'id' => $request->id,
@@ -39,6 +39,7 @@ class CabangController extends Controller
             'alamat_cabang' => $request->alamat,
             'kelurahan' => $request->kelurahan,
             'kecamatan' => $request->kecamatan,
+            'status' => $request->ket,
             'pelatih_cabang' => $request->pelatih,
         ]);
 

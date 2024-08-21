@@ -91,7 +91,7 @@
                       @if (Auth::user()->role == 'admin')
 
                       <a href="{{ route('dashboard.index') }}">
-                        <span class="sub-item">Dashboard 1</span>
+                        <span class="sub-item">Dashboard Admin</span>
                       </a>
                                                 
                       @endif
@@ -183,6 +183,59 @@
                   </ul>
                 </div>
               </li>
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#forms1">
+                  <i class="fas fa-pen-square"></i>
+                  <p>Tambah Ukt</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="forms1">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{ route('uktpimda.index') }}">
+                        <span class="sub-item">Tambah Ukt</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#forms20">
+                  <i class="fas fa-pen-square"></i>
+                  <p>Data Kaderisasi</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="forms20">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{ route('kader.index') }}">
+                        <span class="sub-item">Data Kaderisasi</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </div>
+              </li>
+
+              <li class="nav-item">
+                <a data-bs-toggle="collapse" href="#forms22">
+                  <i class="fas fa-pen-square"></i>
+                  <p>Tambah data siswa</p>
+                  <span class="caret"></span>
+                </a>
+                <div class="collapse" id="forms22">
+                  <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{ route('admin2.index') }}">
+                        <span class="sub-item">Tambah siswa</span>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </div>
+              </li>
              @endif
             </ul>
           </div>
@@ -227,9 +280,23 @@
               >
                
               </nav>
-
+             
+              
+        
+                 
+             
               <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-                
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-envelope"></i>
+                      <span class="badge badge-danger badge-pill"></span> <!-- Example notification count -->
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="messagesDropdown">
+                      <li><a class="dropdown-item" href="#"></a></li>
+                      <!-- Add more messages or links as needed -->
+                  </ul>
+              </li>
+            
                 <li class="nav-item topbar-user dropdown hidden-caret">
                   <a
                     class="dropdown-toggle profile-pic"

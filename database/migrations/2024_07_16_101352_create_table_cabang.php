@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('alamat_cabang');
             $table->string('kelurahan');
             $table->string('kecamatan');
+            $table->string('status');
             $table->string('pelatih_cabang');
             $table->timestamps();
         });

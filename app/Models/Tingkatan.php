@@ -33,5 +33,13 @@ public function ukt()
     return $this->hasMany(Ukt::class, 'tingkatan_selanjutnya', 'nomor_tingkatan');
 }
 
+public function getTingkatanSaatIniAttribute()
+{
+    return $this->nama_tingkatan;
+}
 
+public function getTingkatanSelanjutnyaAttribute()
+{
+    return $this->nama_tingkatan;
+}
 }

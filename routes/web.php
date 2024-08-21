@@ -1,15 +1,18 @@
     <?php
 
-    use App\Http\Controllers\CabangController;
+use App\Http\Controllers\admin2;
+use App\Http\Controllers\CabangController;
     use App\Http\Controllers\DataAnggotaController;
     use App\Http\Controllers\DasboardController;
     use App\Http\Controllers\DashboardPelatihController;
-    use App\Http\Controllers\LoginController;
+use App\Http\Controllers\kaderController;
+use App\Http\Controllers\LoginController;
     use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\TingnkatanController;
     use App\Http\Controllers\UktController;
-    use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\uktPimdaController;
+use Illuminate\Support\Facades\Route;
 
     /*
     |--------------------------------------------------------------------------
@@ -51,3 +54,11 @@ use App\Http\Controllers\TingnkatanController;
     Route::post('/prestasi',[PrestasiController::class, 'store'])->name('prestasi.store');
     Route::put('/prestasi/{prestasi}/update',[PrestasiController::class, 'update'])->name('prestasi.update');
     Route::delete('/prestasi/{prestasi}/destroy',[PrestasiController::class, 'destroy'])->name('prestasi.destroy');
+    Route::get('/uktpimda',[uktPimdaController::class, 'index'])->name('uktpimda.index');
+    Route::post('/uktpimda',[uktPimdaController::class, 'store'])->name('uktpimda.store');
+    Route::get('/kader',[kaderController::class, 'index'])->name('kader.index');
+    Route::post('/kader',[kaderController::class, 'store'])->name('kader.store');
+    Route::get('/admin2',[admin2::class, 'index'])->name('admin2.index');
+    Route::post('/admin2',[admin2::class, 'store'])->name('admin2.store');
+    Route::get('/kader/fetchAnggota', [KaderController::class, 'fetchAnggota']);
+
