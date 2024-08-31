@@ -14,7 +14,7 @@
 
 <div class="card mt-4 rounded">
     <div class="card-header bg-primary">
-        <h4 class="text-white">Tabel Kaderisasi Anggota</h4>
+        <h4 class="text-white">Tabel Kaderisasi </h4>
     </div>
     <div class="card-body">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Kaderisasi +</button>

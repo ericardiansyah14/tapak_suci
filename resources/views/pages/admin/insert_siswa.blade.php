@@ -19,7 +19,7 @@
         </h4>
     </div>
     <div class="card-body">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Cabang +</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Siswa +</button>
         <hr>
         <div class="table-responsive mt-3">
             <table id="basic-datatables" class="display table table-striped table-bordered table-hover">
