@@ -16,12 +16,20 @@ class kaderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Mengambil data kaderisasi beserta relasi cabang dan tingkatan
+        $anggotasel = null;
+    if ($request->has('nama_anggota')) {
+        $anggotasel = Anggota::find($request->input('nama_anggota'));
+    }
         $kaderisasi = Kaderisasi::all();
-        $anggota = Anggota::all();
-        return view('pages.admin.kader', compact('kaderisasi', 'anggota'));
+        $anggota = Anggota::with('tingkatan')
+    ->whereHas('tingkatan', function ($query) {
+        $query->where('kategori', 'kader');
+    })
+    ->get();
+
+        return view('pages.admin.kader', compact('kaderisasi', 'anggota','anggotasel'));
     }
     
 
@@ -30,6 +38,7 @@ public function store(Request $request)
     // Validasi input
     $request->validate([
         'nama_anggota' => 'required|exists:table_anggota,id',
+        'tingkatan' => 'required',
         'tanggal' => 'required|date',
         'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
     ]);
@@ -41,7 +50,7 @@ public function store(Request $request)
     $data = [
         'nama_anggota' => $anggota->nama_anggota,
         'kode_cabang' => $anggota->cabang->nama_cabang ?? null, 
-        'nomor_tingkatan' => $anggota->tingkatan->nama_tingkatan ?? null, 
+        'nomor_tingkatan' => $request->input('tingkatan'),
         'tanggal_ijazah' => $request->input('tanggal'),
     ];
 
@@ -98,6 +107,9 @@ public function store(Request $request)
      */
     public function destroy(string $id)
     {
-        //
+        $kader = Kaderisasi::where('id',$id)->firstOrFail();
+        $kader->delete();
+        Alert::success('Berhasil','Data kader berhasil dihapus');
+        return redirect()->back()->with('success','Data kader berhasil dihapus');
     }
 }

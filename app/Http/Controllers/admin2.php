@@ -21,7 +21,7 @@ class admin2 extends Controller
      */
     public function index()
     {
-        $tingkat = Tingkatan::where('kategori','siswa');
+        $tingkat = Tingkatan::where('kategori','siswa')->get();
         $cabang = Cabang::all();
         $pelatihUsername = Auth::user()->username;
         $userRole = Auth::user()->role; // Asumsi role ada di field `role` pada tabel `users`

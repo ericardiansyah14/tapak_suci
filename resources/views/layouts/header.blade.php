@@ -51,7 +51,7 @@
           <div class="logo-header" data-background-color="dark">
             <a href="index.html" class="logo">
               <img
-                src="assets/img/kaiadmin/49785292317_2d7b29d55f-removebg-preview.png"
+                src="assets/img/kaiadmin/tapak.png"
                 alt="navbar brand"
                 class="navbar-brand"
                 height="20" style="height: 55px; margin-left: -10px;"
@@ -129,6 +129,36 @@
                         <span class="sub-item">Data Siswa Tapak Suci</span>
                       </a>
                     </li>
+                    <ul class="nav nav-collapse">
+                      <li>
+                        <a href="{{ route('admin2.index') }}">
+                          <span class="sub-item">Tambah siswa</span>
+                        </a>
+                      </li>
+                      
+                      <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#forms20">
+                          <i class="fas fa-pen-square"></i>
+                          <p>Data Kaderisasi</p>
+                          <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="forms20">
+                          <ul class="nav nav-collapse">
+                            <li>
+                              <a href="{{ route('kader.index') }}">
+                                <span class="sub-item">Data Kaderisasi</span>
+                              </a>
+                            </li>
+                            <li>
+                              <a href="{{ route('pendekar.index') }}">
+                                <span class="sub-item">Data Pendekar</span>
+                              </a>
+                            </li>
+                            
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
                     @endif
                     @if (Auth::user()->role == 'pelatih')
 
@@ -201,41 +231,9 @@
                 </div>
               </li>
 
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#forms20">
-                  <i class="fas fa-pen-square"></i>
-                  <p>Data Kaderisasi</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="forms20">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="{{ route('kader.index') }}">
-                        <span class="sub-item">Data Kaderisasi</span>
-                      </a>
-                    </li>
-                    
-                  </ul>
-                </div>
-              </li>
+              
 
-              <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#forms22">
-                  <i class="fas fa-pen-square"></i>
-                  <p>Tambah data siswa</p>
-                  <span class="caret"></span>
-                </a>
-                <div class="collapse" id="forms22">
-                  <ul class="nav nav-collapse">
-                    <li>
-                      <a href="{{ route('admin2.index') }}">
-                        <span class="sub-item">Tambah siswa</span>
-                      </a>
-                    </li>
-                    
-                  </ul>
-                </div>
-              </li>
+              
              @endif
             </ul>
           </div>

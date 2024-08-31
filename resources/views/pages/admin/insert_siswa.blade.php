@@ -98,7 +98,7 @@
                     <input type="hidden" name="id" class="form-control" placeholder="id">
                     <div class="mb-3">
                         <label for="" class="form-label">Nomor Induk Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <input type="text" name="nia" value="{{ $newKode }}" placeholder="Masukan Nomor induk anggota..." required class="form-control" id="" readonly>
+                        <input type="text" name="nia" value="{{ $newKode }}" placeholder="Masukan Nomor induk anggota..." required class="form-control" id="" >
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
@@ -117,7 +117,7 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Alamat Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <textarea name="alamat" id="" class="form-control" cols="10" rows="10" placeholder="Masukan alamat anggota..."></textarea>
+                        <textarea name="alamat" id="" class="form-control" cols="30" rows="5" placeholder="Masukan alamat anggota..."></textarea>
                     </div>
 
                     <div class="mb-3">

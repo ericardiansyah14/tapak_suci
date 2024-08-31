@@ -14,10 +14,10 @@
 
 <div class="card mt-4 rounded">
     <div class="card-header bg-primary">
-        <h4 class="text-white">Tabel Kaderisasi Anggota</h4>
+        <h4 class="text-white">Tabel Data Pendekar Anggota</h4>
     </div>
     <div class="card-body">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Kaderisasi +</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="margin: 8px">Tambah Data Pendekar +</button>
         <hr>
         <div class="table-responsive mt-3">
             <table id="basic-datatables" class="display table table-striped table-bordered table-hover">
@@ -44,7 +44,7 @@
                                     <img style="width: 60px; aspect-ratio: 1/1; background-position: center;" class="img-avatar" src="{{ asset( $data->foto_ijazah) }}" alt="Foto" width="100">
                             </td>
                             <td>
-                                <form action="{{ route('kader.destroy',['kader'=>$data->id]) }}" method="post">
+                                <form action="{{ route('pendekar.destroy',['pendekar'=>$data->id]) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                 <button class="btn btn-danger" onclick="return confirm('APakah Yakin Akan Hapus Data Ini?')"><i class="fa-solid fa-eraser"></i></button>
@@ -62,11 +62,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Form Tambah Data Kaderisasi</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Form Tambah Data Pendekar</h5>
                 <button type="button" class="btn-close bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('kader.store') }}" method="POST" enctype="multipart/form-data">
+                <div class="alert alert-info">Data ini menampilkan pendekar besar - pendekar muda</div>
+                <form action="{{ route('pendekar.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="nama_anggota" class="form-label">Nama Anggota</label>

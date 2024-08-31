@@ -8,10 +8,12 @@ use App\Http\Controllers\CabangController;
 use App\Http\Controllers\kaderController;
 use App\Http\Controllers\LoginController;
     use App\Http\Controllers\PelatihController;
+use App\Http\Controllers\PendekarController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\TingnkatanController;
     use App\Http\Controllers\UktController;
 use App\Http\Controllers\uktPimdaController;
+use App\Models\Pendekar;
 use Illuminate\Support\Facades\Route;
 
     /*
@@ -56,9 +58,15 @@ use Illuminate\Support\Facades\Route;
     Route::delete('/prestasi/{prestasi}/destroy',[PrestasiController::class, 'destroy'])->name('prestasi.destroy');
     Route::get('/uktpimda',[uktPimdaController::class, 'index'])->name('uktpimda.index');
     Route::post('/uktpimda',[uktPimdaController::class, 'store'])->name('uktpimda.store');
+    Route::delete('/uktpimda/{uktpimda}/destroy',[uktPimdaController::class,'destroy'])->name('uktpimda.destroy');
+    Route::put('/uktpimda/{uktpimda}/update',[uktPimdaController::class,'update'])->name('uktpimda.update');
     Route::get('/kader',[kaderController::class, 'index'])->name('kader.index');
     Route::post('/kader',[kaderController::class, 'store'])->name('kader.store');
+    Route::delete('/kader/{kader}/destroy',[kaderController::class,'destroy'])->name('kader.destroy');
     Route::get('/admin2',[admin2::class, 'index'])->name('admin2.index');
     Route::post('/admin2',[admin2::class, 'store'])->name('admin2.store');
     Route::get('/kader/fetchAnggota', [KaderController::class, 'fetchAnggota']);
+    Route::get('/pendekar',[PendekarController::class, 'index'])->name('pendekar.index');
+    Route::post('/pendekar',[PendekarController::class, 'store'])->name('pendekar.store');
+    Route::delete('/pendekar/{pendekar}/destroy',[PendekarController::class,'destroy'])->name('pendekar.destroy');
 

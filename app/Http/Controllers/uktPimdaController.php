@@ -119,7 +119,16 @@ class uktPimdaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = UktModel::where('id',$id)->firstOrFail();
+        if ($request->input('panitia') !== null) {
+            $data->ketua_panitia = $request->input('panitia');
+        }
+        $data->lokasi_ukt = $request->input('lokasi');
+        $data->tanggal_ukt = $request->input('tanggal');
+
+        $data->update();
+        Alert::success('Berhasil','Data ukt berhasil diperbarui');
+        return redirect()->back()->with('success','Data ukt berhasil diperbarui');
     }
 
     /**
@@ -127,6 +136,9 @@ class uktPimdaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ukt = UktModel::where('id',$id)->firstOrFail();
+        $ukt->delete();
+        Alert::success('Berhasil','Data Ukt berhasil di hapus');
+        return redirect()->back()->with('success','Data Ukt Berhasil di haous');
     }
 }

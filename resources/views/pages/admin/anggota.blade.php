@@ -132,8 +132,8 @@
                         <label for="" class="form-label">Keterangan Cabang</label>
                         <select name="ket" id="" class="form-select">
                             <option value="">--luar atau dalam pimda--</option>
-                            <option value="dalam pimda 114">dalam pimda 114</option>
-                            <option value="luar pimda 114">luar pimda 114</option>
+                            <option value="cabang sekolah">cabang sekolah</option>
+                            <option value="cabang umum">cabang umum</option>
                         </select>
                     </div>
                     <div class="mb-3">

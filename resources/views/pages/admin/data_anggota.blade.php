@@ -105,7 +105,7 @@
     </div>
     <div class="mb-3">
         <label for="nama_anggota" class="form-label">Nama Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-        <input type="text" name="nama_anggota" style="text-transform: uppercase;" value="{{ $item->nama_anggota }}" class="form-control" placeholder="Masukan Nama Anggota..." required id="nama_anggota">
+        <input type="text" name="nama_anggota" style="text-transform: uppercase;" value="{{ $item->nama_anggota }}" style="text-transform: uppercase;" class="form-control" placeholder="Masukan Nama Anggota..." required id="nama_anggota">
     </div>
     <div class="mb-3">
         <label for="tempat_lahir" class="form-label">Tempat Lahir Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
@@ -117,7 +117,7 @@
     </div>
     <div class="mb-3">
         <label for="alamat" class="form-label">Alamat Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-        <textarea name="alamat" id="alamat" class="form-control" cols="10" rows="10" placeholder="Masukan alamat anggota...">{{ $item->alamat }}</textarea>
+        <textarea name="alamat" id="alamat" class="form-control" cols="30" rows="5" placeholder="Masukan alamat anggota...">{{ $item->alamat }}</textarea>
     </div>
     <div class="mb-3">
         <label for="wa" class="form-label">No Telepon/Wa <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
@@ -132,7 +132,7 @@
             @endforeach
         </select>
     </div>
-    <div class="mb-3">
+    {{-- <div class="mb-3">
         <label for="tgl_ijazah" class="form-label">Tanggal Ijazah Tingkatan <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
         <input type="date" name="tgl_ijazah" value="{{ $item->tangga_ijazah_tingkatan }}" class="form-control" placeholder="Masukan Tanggal Ijazah..." required id="tgl_ijazah">
     </div>
@@ -147,7 +147,7 @@
     <div class="mb-3">
         <label for="pengalaman" class="form-label">Pengalaman di organisasi tapak suci <sup>( jika ada )</sup></label>
         <textarea name="pengalaman" id="pengalaman" class="form-control" cols="10" rows="10" placeholder="Masukan pengalaman anggota di organisasi tapak suci...">{{ $item->pengalaman_organisasi_tapak_suci }}</textarea>
-    </div>
+    </div> --}}
     {{-- <div class="mb-3">
         <label for="cabang" class="form-label">Cabang Pelatihan <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
         <select name="cabang" class="form-select" id="cabang">
@@ -199,7 +199,7 @@
                     <input type="hidden" name="id" class="form-control" placeholder="id">
                     <div class="mb-3">
                         <label for="" class="form-label">Nomor Induk Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <input type="number" name="nia" value="{{ $newKode }}" placeholder="Masukan Nomor induk anggota..." required class="form-control" id="" readonly>
+                        <input type="number" name="nia" value="{{ $newKode }}" placeholder="Masukan Nomor induk anggota..." required class="form-control" id="">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
@@ -218,7 +218,7 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Alamat Anggota <sup><b style="font-size: 13px">(<span class="text-danger">*</span>)</b></sup></label>
-                        <textarea name="alamat" id="" class="form-control" cols="10" rows="10" placeholder="Masukan alamat anggota..."></textarea>
+                        <textarea name="alamat" id="" class="form-control" cols="30" rows="5" placeholder="Masukan alamat anggota..."></textarea>
                     </div>
 
                     <div class="mb-3">

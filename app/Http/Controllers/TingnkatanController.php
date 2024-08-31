@@ -69,14 +69,18 @@ class TingnkatanController extends Controller
      */
     public function update(Request $request, string $nomor_tingkatan)
     {
-        $data = Tingkatan::where('nomor_tingkatan',$nomor_tingkatan)->firstOrFail();
+        $data = Tingkatan::where('nomor_tingkatan', $nomor_tingkatan)->firstOrFail();
 
-        $data -> nama_tingkatan = $request->input('nama_ketingkatan');
-        $data -> kategori = $request->input('kategori');
-
+        // Jika kategori tidak dipilih, gunakan nilai kategori yang sudah ada
+        if ($request->input('kategori') !== null) {
+            $data->kategori = $request->input('kategori');
+        }
+    
+        $data->nama_tingkatan = $request->input('nama_ketingkatan');
+    
         $data->update();
-        Alert::success('Success', 'Data Tingkatan berhasil di perbarui');
-        return redirect()->back()->with('success','Data Tingkatan Berhasil Di perbarui');
+        Alert::success('Success', 'Data Tingkatan berhasil diperbarui');
+        return redirect()->back()->with('success', 'Data Tingkatan Berhasil Diperbarui');
     }
 
     /**

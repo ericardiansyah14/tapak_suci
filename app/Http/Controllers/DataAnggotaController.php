@@ -19,16 +19,22 @@ class DataAnggotaController extends Controller
     {
         $cabang = Cabang::all();
         $kategori = $request->input('kategori');
-        $tingkat1 = Tingkatan::all();
+        $tingkat1 = Tingkatan::whereNot('kategori','siswa')->get();
         $tingkat = Tingkatan::whereNot('kategori','siswa')->get();
     
         $anggota = Anggota::with('tingkatan')
-                    ->when($kategori, function ($query, $kategori) {
-                        return $query->whereHas('tingkatan', function ($query) use ($kategori) {
-                            $query->where('kategori', $kategori);
-                        });
-                    })
-                    ->get();
+        ->when($kategori, function ($query, $kategori) {
+            return $query->whereHas('tingkatan', function ($query) use ($kategori) {
+                $query->where('kategori', $kategori);
+            });
+        }, function ($query) {
+            // Kondisi ketika tidak ada filter kategori
+            return $query->whereHas('tingkatan', function ($query) {
+                $query->where('kategori', '!=', 'siswa');
+            });
+        })
+        ->get();
+    
 
                     $lastanggota = Anggota::orderBy('nomor_induk', 'desc')->first();
     $lastKode = $lastanggota ? intval(substr($lastanggota->nomor_induk, 6)) : 0;
@@ -114,11 +120,7 @@ class DataAnggotaController extends Controller
             'alamat' => 'required|string|max:255',
             'wa' => 'required|string|max:25',
             'tingkatan' => 'required|string|max:50',
-            'tgl_ijazah' => 'nullable|date',
-            'foto' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
-            'cabang' => 'required|string|max:50',
-            'prestasi' => 'nullable|string|max:255',
-            'pengalaman' => 'nullable|string|max:255'
+          
         ]);
     
         $anggota = Anggota::where('nomor_induk', $nomor_induk)->firstOrFail();
@@ -136,10 +138,6 @@ class DataAnggotaController extends Controller
         $anggota->alamat = $request->input('alamat');
         $anggota->telepon_wa = $request->input('wa');
         $anggota->kode_angkatan = $request->input('tingkatan');
-        $anggota->tangga_ijazah_tingkatan = $request->input('tgl_ijazah');
-        $anggota->prestasi_yang_diraih = $request->input('prestasi');
-        $anggota->pengalaman_organisasi_tapak_suci = $request->input('pengalaman');
-        $anggota->kode_cabang = $request->input('cabang');
         $anggota->update();
     
         Alert::success('Success', 'Data anggota berhasil diperbarui');
