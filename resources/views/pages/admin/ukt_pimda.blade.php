@@ -17,6 +17,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Lokasi UKT</th>
+                        <th>Alamat UKT</th>
                         <th>Tanggal UKT</th>
                         <th>Ketua Panitia</th>
                         <th>Jumlah Daftar</th>
@@ -28,6 +29,7 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td style="text-transform: uppercase;">{{ $item->lokasi_ukt }}</td>
+                            <td style="text-transform: uppercase;">{{ $item->alamat_ukt }}</td>
                             <td>{{ $item->tanggal_ukt }}</td>
                             <td style="text-transform: uppercase;">{{ $item->ketua_panitia }}</td>
                             <td>{{ $item->jumlah_data }} 
@@ -59,6 +61,11 @@
                                             <div class="mb-3">
                                                 <label for="" class="form-label">Lokasi Pelaksanaan UKT</label>
                                                 <input type="text" style="text-transform: uppercase;" name="lokasi" value="{{ $item->lokasi_ukt }}" class="form-control" placeholder="Masukan lokasi pelaksanaan UKT...">
+                                            </div>
+                        
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Alamat Pelaksanaan UKT</label>
+                                                <input type="text" style="text-transform: uppercase;" name="alamat" value="{{ $item->alamat_ukt }}" class="form-control" placeholder="Masukan lokasi pelaksanaan UKT...">
                                             </div>
                         
                                             <div class="mb-3">
@@ -149,6 +156,10 @@
                     <div class="mb-3">
                         <label for="" class="form-label">Lokasi Pelaksanaan UKT</label>
                         <input type="text" style="text-transform: uppercase;" name="lokasi" class="form-control" placeholder="Masukan lokasi pelaksanaan UKT...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Alamat Pelaksanaan UKT</label>
+                        <input type="text" style="text-transform: uppercase;" name="alamat" class="form-control" placeholder="Masukan alamat pelaksanaan UKT...">
                     </div>
 
                     <div class="mb-3">

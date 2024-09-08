@@ -125,40 +125,26 @@
                   <ul class="nav nav-collapse">
                     @if (Auth::user()->role == 'admin')
                     <li>
-                      <a href="{{ route('anggota.index') }}">
-                        <span class="sub-item">Data Siswa Tapak Suci</span>
+                      <a href="{{ route('pendekar.index') }}">
+                        <span class="sub-item">Data Pendekar</span>
                       </a>
                     </li>
-                    <ul class="nav nav-collapse">
+                    <li>
+                      <a href="{{ route('anggota.index') }}">
+                        <span class="sub-item">Data Kader</span>
+                      </a>
+                    </li>
+                            
+                    
                       <li>
                         <a href="{{ route('admin2.index') }}">
-                          <span class="sub-item">Tambah siswa</span>
+                          <span class="sub-item">Data siswa</span>
                         </a>
                       </li>
                       
-                      <li class="nav-item">
-                        <a data-bs-toggle="collapse" href="#forms20">
-                          <i class="fas fa-pen-square"></i>
-                          <p>Data Kaderisasi</p>
-                          <span class="caret"></span>
-                        </a>
-                        <div class="collapse" id="forms20">
-                          <ul class="nav nav-collapse">
-                            <li>
-                              <a href="{{ route('kader.index') }}">
-                                <span class="sub-item">Data Kaderisasi</span>
-                              </a>
-                            </li>
-                            <li>
-                              <a href="{{ route('pendekar.index') }}">
-                                <span class="sub-item">Data Pendekar</span>
-                              </a>
-                            </li>
-                            
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
+                     
+                    
+                    
                     @endif
                     @if (Auth::user()->role == 'pelatih')
 
@@ -213,6 +199,23 @@
                   </ul>
                 </div>
               </li>
+               <li class="nav-item">
+                        <a data-bs-toggle="collapse" href="#forms20">
+                          <i class="fas fa-pen-square"></i>
+                          <p>Data Kaderisasi</p>
+                          <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="forms20">
+                          <ul class="nav nav-collapse">
+                            <li>
+                              <a href="{{ route('kader.index') }}">
+                                <span class="sub-item">Data Kaderisasi</span>
+                              </a>
+                            </li>
+                            
+                          </ul>
+                        </div>
+                      </li>
               <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#forms1">
                   <i class="fas fa-pen-square"></i>

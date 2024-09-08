@@ -20,7 +20,7 @@ class DataAnggotaController extends Controller
         $cabang = Cabang::all();
         $kategori = $request->input('kategori');
         $tingkat1 = Tingkatan::whereNot('kategori','siswa')->get();
-        $tingkat = Tingkatan::whereNot('kategori','siswa')->get();
+        $tingkat = Tingkatan::where('kategori','kader')->get();
     
         $anggota = Anggota::with('tingkatan')
         ->when($kategori, function ($query, $kategori) {
@@ -30,7 +30,7 @@ class DataAnggotaController extends Controller
         }, function ($query) {
             // Kondisi ketika tidak ada filter kategori
             return $query->whereHas('tingkatan', function ($query) {
-                $query->where('kategori', '!=', 'siswa');
+                $query->where('kategori', '==', 'kader');
             });
         })
         ->get();

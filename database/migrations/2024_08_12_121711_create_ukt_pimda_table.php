@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('ukt_pimda', function (Blueprint $table) {
             $table->id(); // id default adalah unsignedBigInteger
             $table->string('lokasi_ukt');
+            $table->string('alamat_ukt');
             $table->string('tanggal_ukt');
             $table->string('ketua_panitia');
             $table->timestamps();

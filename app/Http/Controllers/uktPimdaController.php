@@ -24,6 +24,7 @@ class uktPimdaController extends Controller
         ->select(
             'ukt_pimda.id',
             'ukt_pimda.lokasi_ukt',
+            'ukt_pimda.alamat_ukt',
             'ukt_pimda.tanggal_ukt',
             'ukt_pimda.ketua_panitia',
             DB::raw('COUNT(ukt.ukt_pimda_id) as jumlah_data'),
@@ -33,6 +34,7 @@ class uktPimdaController extends Controller
         ->groupBy(
             'ukt_pimda.id',
             'ukt_pimda.lokasi_ukt', 
+            'ukt_pimda.alamat_ukt', 
             'ukt_pimda.tanggal_ukt',
             'ukt_pimda.ketua_panitia',
             't1.nama_tingkatan',
@@ -64,6 +66,7 @@ class uktPimdaController extends Controller
         UktModel::create([
             'id' => $request->id,
             'lokasi_ukt' => $request->lokasi,
+            'alamat_ukt' => $request->alamat,
             'tanggal_ukt' => $request->tanggal,
             'ketua_panitia' => $request->panitia,
         ]);
@@ -124,6 +127,7 @@ class uktPimdaController extends Controller
             $data->ketua_panitia = $request->input('panitia');
         }
         $data->lokasi_ukt = $request->input('lokasi');
+        $data->alamat_ukt = $request->input('alamat');
         $data->tanggal_ukt = $request->input('tanggal');
 
         $data->update();

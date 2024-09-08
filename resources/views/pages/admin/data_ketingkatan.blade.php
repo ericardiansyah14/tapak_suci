@@ -34,7 +34,7 @@
                         <tr>
                             <td>{{ $data->id }}</td>
                             <td>{{ $data->nomor_tingkatan }}</td>
-                            <td>{{ $data->nama_tingkatan }}</td>
+                            <td style="text-transform: uppercase;">{{ $data->nama_tingkatan }}</td>
                             <td>{{ $data->kategori }}</td>
                             <td>
                                 <button style="box-shadow: 0px 3px 4px blue" class="btn btn-sm btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -127,7 +127,7 @@
 
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Ketingkatan</label>
-                        <input type="text" name="nama_ketingkatan" class="form-control" placeholder="Masukan Nama ketingkatan...." required id="">
+                        <input type="text" style="text-transform: uppercase;" name="nama_ketingkatan" class="form-control" placeholder="Masukan Nama ketingkatan...." required id="">
                     </div>
                    
             </div>

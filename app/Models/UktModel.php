@@ -11,6 +11,7 @@ class UktModel extends Model
     protected $table = 'ukt_pimda'; 
     protected $fillable = [
         'lokasi_ukt',
+        'alamat_ukt',
         'tanggal_ukt',
         'ketua_panitia',
     
