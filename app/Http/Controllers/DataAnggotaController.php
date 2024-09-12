@@ -30,7 +30,7 @@ class DataAnggotaController extends Controller
         }, function ($query) {
             // Kondisi ketika tidak ada filter kategori
             return $query->whereHas('tingkatan', function ($query) {
-                $query->where('kategori', '==', 'kader');
+                $query->where('kategori', '=', 'kader');
             });
         })
         ->get();

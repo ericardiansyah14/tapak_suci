@@ -14,6 +14,7 @@ class Kaderisasi extends Model
         'nomor_tingkatan',
         'tanggal_ijazah',
         'foto_ijazah',
+        'link',
         'kode_cabang',
     ];
 }

@@ -29,6 +29,7 @@
                         <th>Tingkatan</th>
                         <th>Tanggal Ijazah</th>
                         <th>Foto Ijazah</th>
+                        <th>Link Gdrive</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -43,6 +44,7 @@
                             <td>
                                     <img style="width: 60px; aspect-ratio: 1/1; background-position: center;" class="img-avatar" src="{{ asset( $data->foto_ijazah) }}" alt="Foto" width="100">
                             </td>
+                            <td><a href="">{{ $data->link }}</a></td>
                             <td>
                                 <form action="{{ route('kader.destroy',['kader'=>$data->id]) }}" method="post">
                                     @csrf
@@ -110,6 +112,11 @@
                     <div class="mb-3">
                         <label for="foto" class="form-label">Foto ijazah</label>
                         <input type="file" id="foto" name="foto" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="" class="form-label">Masukan Link GDrive <sup>(Jika ada)</sup></label>
+                        <input type="text" name="link" class="form-control">
                     </div>
 
                     <div class="modal-footer">

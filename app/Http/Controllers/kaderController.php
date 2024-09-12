@@ -41,6 +41,7 @@ public function store(Request $request)
         'tingkatan' => 'required',
         'tanggal' => 'required|date',
         'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'link' => 'nullable|url',
     ]);
 
     // Temukan anggota berdasarkan ID
@@ -52,6 +53,7 @@ public function store(Request $request)
         'kode_cabang' => $anggota->cabang->nama_cabang ?? null, 
         'nomor_tingkatan' => $request->input('tingkatan'),
         'tanggal_ijazah' => $request->input('tanggal'),
+        'link' => $request->input('link'),
     ];
 
     // Proses upload foto jika ada

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nomor_tingkatan');
             $table->date('tanggal_ijazah');
             $table->string('foto_ijazah');
+            $table->string('link')->nullable();
             $table->string('kode_cabang')->nullable();
             $table->timestamps();
         });

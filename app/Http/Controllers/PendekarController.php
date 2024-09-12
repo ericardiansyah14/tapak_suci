@@ -31,7 +31,7 @@ class PendekarController extends Controller
         }, function ($query) {
             // Kondisi ketika tidak ada filter kategori
             return $query->whereHas('tingkatan', function ($query) {
-                $query->where('kategori', '!=', 'siswa');
+                $query->where('kategori', '=', 'pendekar');
             });
         })
         ->get();
